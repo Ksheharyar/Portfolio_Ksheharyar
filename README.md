@@ -1,36 +1,142 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🎮 Mohd Sheharyar — Game Developer Portfolio
 
-## Getting Started
+A modern interactive portfolio built with Next.js showcasing my game development projects, VR experiences, Unreal Engine creations, and interactive applications.
 
-First, run the development server:
+This portfolio highlights my work in:
+- 🎮 Game Development
+- 🥽 VR/XR Experiences
+- ⚡ Unreal Engine Projects
+- 🧠 AI & Gameplay Systems
+- 🌐 Interactive Web Experiences
+
+---
+
+# 🚀 Live Portfolio
+
+🌍 Portfolio Website:  
+https://new.express.adobe.com/webpage/nYDj3iJ0MEw2z
+
+💼 LinkedIn:  
+https://www.linkedin.com/in/mohd-sheharyar
+
+---
+
+# ✨ Features
+
+## 🎮 Game Developer Themed UI
+- Modern immersive design
+- Smooth animations and transitions
+- Interactive sections and effects
+- Responsive layout
+
+## 🕹️ Project Showcase
+Includes:
+- Unreal Engine Projects
+- Unity Games
+- VR Simulations
+- Android Games
+- AI-Based Systems
+
+## 🥽 VR & Unreal Engine Focus
+Showcases:
+- VR Clothing Simulator
+- Meta Quest Projects
+- VR Interaction Systems
+- Gameplay Mechanics
+
+## ⚡ Optimized Performance
+- Fast loading experience
+- Responsive across devices
+- Optimized assets and rendering
+
+---
+
+# 🛠️ Technologies Used
+
+- Next.js
+- React
+- TypeScript
+- Tailwind CSS
+- Framer Motion
+- Vercel Deployment
+
+---
+
+# 📂 Project Structure
+
+```bash
+app/
+components/
+hooks/
+public/
+styles/
+package.json
+```
+
+---
+
+# 🚀 Getting Started
+
+Clone the repository:
+
+```bash
+git clone https://github.com/YOUR_USERNAME/YOUR_REPOSITORY.git
+```
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+http://localhost:3000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+# 🌟 Featured Projects
 
-To learn more about Next.js, take a look at the following resources:
+- 🎮 Dragon's Curse
+- 🔑 Key to Escape
+- 😂 Cid Rush
+- 🥽 VR Clothing Simulator
+- ⚔️ SwordEdge
+- 🧩 VR Maze Experience
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+# 🔮 Future Improvements
 
-## Deploy on Vercel
+- Interactive 3D portfolio elements
+- Live gameplay previews
+- Integrated dev blog
+- Downloadable resume section
+- Advanced animation systems
+- Online playable demos
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+# 👨‍💻 Developer
+
+Developed by: **Mohd Sheharyar**
+
+💼 LinkedIn:  
+https://www.linkedin.com/in/mohd-sheharyar
+
+🌍 Portfolio:  
+https://new.express.adobe.com/webpage/nYDj3iJ0MEw2z
+
+---
+
+# 📜 License
+
+This project is created for portfolio and professional showcase purposes.
