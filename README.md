@@ -1,4 +1,4 @@
-# 🎮 Mohd Sheharyar — Game Developer Portfolio
+# 🎮Game Developer Portfolio
 
 A modern interactive portfolio built with Next.js showcasing my game development projects, VR experiences, Unreal Engine creations, and interactive applications.
 
