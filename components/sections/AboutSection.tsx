@@ -48,7 +48,7 @@ export function AboutSection() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
         <div className="about-item">
           <p className="font-body text-lg text-foreground/80 leading-relaxed">
-            I'm Mohd Sheharyar, a passionate Gameplay Systems Developer, VR Developer, and Unreal Engine 5 specialist. I craft immersive, high-performance gameplay experiences with a focus on combat mechanics, VR interaction systems, and technical design. My work blends creative vision with technical precision to deliver AAA-quality results.
+            I&apos;m Mohd Sheharyar, a passionate Gameplay Systems Developer, VR Developer, and Unreal Engine 5 specialist. I craft immersive, high-performance gameplay experiences with a focus on combat mechanics, VR interaction systems, and technical design. My work blends creative vision with technical precision to deliver AAA-quality results.
           </p>
         </div>
         <div className="grid grid-cols-2 gap-8">

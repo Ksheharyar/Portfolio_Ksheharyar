@@ -3,8 +3,8 @@
 :root {
   --background: #0a0a0a;
   --foreground: #ededed;
-  --gold: #c9a227;
-  --gold-light: #ffd700;
+  --gold: #d4af37;
+  --gold-light: #ffd666;
   --dark-grey: #1a1a1a;
   --medium-grey: #2d2d2d;
 }
@@ -25,6 +25,40 @@ body {
   color: var(--foreground);
   font-family: var(--font-body);
   overflow-x: hidden;
+  position: relative;
+  min-height: 100vh;
+  background-image:
+    radial-gradient(circle at top, rgba(201, 162, 39, 0.08), transparent 24%),
+    radial-gradient(circle at 50% 20%, rgba(255, 255, 255, 0.04), transparent 22%),
+    linear-gradient(180deg, #090909 0%, #050505 48%, #070707 100%);
+  background-attachment: fixed;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 50% 18%, rgba(201, 162, 39, 0.08), transparent 26%),
+    radial-gradient(circle at 50% 82%, rgba(255, 255, 255, 0.03), transparent 20%);
+  mix-blend-mode: screen;
+  opacity: 0.16;
+  z-index: 0;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at center, transparent 42%, rgba(0, 0, 0, 0.28) 100%);
+  z-index: 0;
+}
+
+body > * {
+  position: relative;
+  z-index: 1;
 }
 
 ::-webkit-scrollbar {
@@ -48,7 +82,26 @@ html {
   scroll-behavior: smooth;
 }
 
+::selection {
+  background: rgba(201, 162, 39, 0.35);
+  color: #fff8df;
+}
+
 .fade-in {
   opacity: 0;
   transform: translateY(20px);
+}
+
+.cinematic-scanlines {
+  background-image: linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+  background-size: 100% 4px;
+  mix-blend-mode: soft-light;
+}
+
+.cinematic-vignette {
+  background: radial-gradient(circle at center, transparent 36%, rgba(0, 0, 0, 0.46) 100%);
+}
+
+.cinematic-video-canvas {
+  filter: saturate(1.06) contrast(1.03) brightness(0.78) sepia(0.04);
 }

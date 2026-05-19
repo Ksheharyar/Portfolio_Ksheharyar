@@ -22,10 +22,32 @@ function CarModel({ progress }: CarModelProps) {
   const groupRef = useRef<THREE.Group>(null);
   const lightRef = useRef<THREE.SpotLight>(null);
   const { scene } = useGLTF('/assets/models/car.glb');
+  // clone the loaded scene so we can safely modify materials and transforms
+  const cloned = useMemo(() => (scene ? (scene.clone(true) as THREE.Group) : null), [scene]);
 
   const targetZ = useMemo(() => THREE.MathUtils.lerp(7.5, 0.2, Math.min(Math.max(progress / 100, 0), 1)), [progress]);
   const targetY = useMemo(() => THREE.MathUtils.lerp(-0.95, -0.15, Math.min(Math.max(progress / 100, 0), 1)), [progress]);
   const targetScale = useMemo(() => THREE.MathUtils.lerp(0.9, 1.12, Math.min(Math.max(progress / 100, 0), 1)), [progress]);
+
+  // apply material tweaks once to the cloned scene (safe to mutate)
+  if (cloned) {
+    cloned.traverse((child) => {
+      if ((child as THREE.Mesh).isMesh) {
+        const mesh = child as THREE.Mesh;
+        mesh.castShadow = true;
+        mesh.receiveShadow = true;
+        const material = mesh.material as THREE.MeshStandardMaterial | THREE.MeshPhysicalMaterial | THREE.MeshBasicMaterial | undefined;
+        if (material && 'metalness' in material) {
+          material.metalness = 0.82;
+          material.roughness = 0.28;
+          // envMapIntensity may not exist on all material types — set if present
+          if ('envMapIntensity' in material) {
+            (material as THREE.MeshStandardMaterial & { envMapIntensity?: number }).envMapIntensity = 1.6;
+          }
+        }
+      }
+    });
+  }
 
   useFrame((state, delta) => {
     if (!groupRef.current) return;
@@ -43,26 +65,13 @@ function CarModel({ progress }: CarModelProps) {
       lightRef.current.intensity = 1400 + progress * 32;
     }
 
-    scene.traverse((child) => {
-      if ((child as THREE.Mesh).isMesh) {
-        const mesh = child as THREE.Mesh;
-        mesh.castShadow = true;
-        mesh.receiveShadow = true;
-        const material = mesh.material as THREE.MeshStandardMaterial | THREE.MeshPhysicalMaterial | THREE.MeshBasicMaterial | undefined;
-        if (material && 'metalness' in material) {
-          material.metalness = 0.82;
-          material.roughness = 0.28;
-          material.envMapIntensity = 1.6;
-        }
-      }
-    });
-
-    scene.rotation.y += delta * 0.12;
+    // rotate the wrapping group instead of mutating the hook-returned scene
+    groupRef.current.rotation.y += delta * 0.12;
   });
 
   return (
     <group ref={groupRef} position={[0, -0.9, 7.5]} rotation={[0, Math.PI, 0]} scale={0.92}>
-      <primitive object={scene} />
+      {cloned ? <primitive object={cloned} /> : <primitive object={scene} />}
       <spotLight ref={lightRef} position={[0, 3, 5]} angle={0.38} penumbra={1} distance={30} color={0xffe8bb} intensity={1400} />
       <pointLight position={[0, 0.5, 2]} distance={14} color={0xffd48a} intensity={2.2} />
       <mesh rotation-x={-Math.PI / 2} position={[0, -1.08, 0]} receiveShadow>

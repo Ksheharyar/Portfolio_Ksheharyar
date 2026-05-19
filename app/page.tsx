@@ -19,23 +19,19 @@ export default function Home() {
 
   return (
     <>
-      <AnimatePresence>
-        {isLoading && <LoadingScreen onLoadComplete={() => setIsLoading(false)} />}
-      </AnimatePresence>
-      {!isLoading && (
-        <main className="flex flex-col">
-          <HeroSection />
-          <AboutSection />
-          <SkillsSection />
-          <FeaturedProjectSection />
-          <VRProjectsSection />
-          <OtherProjectsSection />
-          <JourneySection />
-          <RecruiterSection />
-          <DownloadSection />
-          <ContactSection />
-        </main>
-      )}
+      <main className={`flex flex-col transition-opacity duration-700 ${isLoading ? 'opacity-0 pointer-events-none select-none' : 'opacity-100'}`}>
+        <HeroSection />
+        <AboutSection />
+        <SkillsSection />
+        <FeaturedProjectSection />
+        <VRProjectsSection />
+        <OtherProjectsSection />
+        <JourneySection />
+        <RecruiterSection />
+        <DownloadSection />
+        <ContactSection />
+      </main>
+      <AnimatePresence>{isLoading && <LoadingScreen onLoadComplete={() => setIsLoading(false)} />}</AnimatePresence>
     </>
   );
 }
