@@ -20,10 +20,11 @@ export default function HeroCanvas({ className }: HeroCanvasProps) {
         autoPlay
         preload="auto"
         aria-hidden="true"
+        style={{ objectPosition: 'center 20%' }}
       >
         <source src="/assets/hero.mp4" type="video/mp4" />
       </video>
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_34%,rgba(212,175,55,0.06),transparent_36%),linear-gradient(180deg,rgba(0,0,0,0.1),rgba(0,0,0,0.56))]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_28%,rgba(192,38,45,0.08),transparent_34%),linear-gradient(180deg,rgba(0,0,0,0.08),rgba(0,0,0,0.42))]" />
     </div>
   );
 }

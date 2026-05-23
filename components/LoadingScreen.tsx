@@ -8,7 +8,6 @@ import { useReducedMotion } from '@/hooks/useReducedMotion';
 const ParticleBackground = dynamic(() => import('@/components/ParticleBackground'), { ssr: false });
 
 const LOADER_DURATION = 10800;
-const BLACK_START_MS = 1000;
 const LOADER_STAGES = [
   { label: 'Initializing Experience', threshold: 0 },
   { label: 'Loading Gameplay Systems', threshold: 0.28 },
@@ -26,7 +25,7 @@ export function LoadingScreen({ onLoadComplete }: { onLoadComplete: () => void }
   const flashRef = useRef<HTMLDivElement>(null);
   const [progress, setProgress] = useState(0);
   const [activeStage, setActiveStage] = useState(LOADER_STAGES[0].label);
-  const [cinematicVisible, setCinematicVisible] = useState(false);
+  const cinematicVisible = true;
   const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
@@ -43,12 +42,9 @@ export function LoadingScreen({ onLoadComplete }: { onLoadComplete: () => void }
     const progressTrack = progressTrackRef.current;
     const diagnostic = diagnosticRef.current;
     const videoEl = videoRef.current;
-    const blackTimer = window.setTimeout(() => {
-      setCinematicVisible(true);
-      videoEl?.play().catch(() => {
-        // muted autoplay should work, but if it doesn't we still keep the cinematic shell alive.
-      });
-    }, BLACK_START_MS);
+    videoEl?.play().catch(() => {
+      // muted autoplay should work, but if it doesn't we still keep the cinematic shell alive.
+    });
 
     const minTimer = window.setTimeout(() => {
       minDurationPassed = true;
@@ -57,10 +53,10 @@ export function LoadingScreen({ onLoadComplete }: { onLoadComplete: () => void }
       }
     }, cinematicDuration);
 
-    gsap.fromTo(title, { y: 28, opacity: 0 }, { y: 0, opacity: 1, duration: 1.1, ease: 'power3.out', delay: BLACK_START_MS / 1000 });
-    gsap.fromTo(stage, { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 1, delay: BLACK_START_MS / 1000 + 0.25, ease: 'power3.out' });
-    gsap.fromTo(progressTrack, { scaleX: 0.96, opacity: 0 }, { scaleX: 1, opacity: 1, duration: 1, delay: BLACK_START_MS / 1000 + 0.35, ease: 'power3.out' });
-    gsap.fromTo(diagnostic, { y: 18, opacity: 0 }, { y: 0, opacity: 1, duration: 1, delay: BLACK_START_MS / 1000 + 0.45, ease: 'power3.out' });
+    gsap.fromTo(title, { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 1, ease: 'power3.out' });
+    gsap.fromTo(stage, { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9, delay: 0.15, ease: 'power3.out' });
+    gsap.fromTo(progressTrack, { scaleX: 0.98, opacity: 0 }, { scaleX: 1, opacity: 1, duration: 0.9, delay: 0.25, ease: 'power3.out' });
+    gsap.fromTo(diagnostic, { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9, delay: 0.35, ease: 'power3.out' });
 
     const finishSequence = () => {
       if (completed) return;
@@ -132,10 +128,9 @@ export function LoadingScreen({ onLoadComplete }: { onLoadComplete: () => void }
       if (!videoEl || !videoEl.duration) {
         handleError();
       }
-    }, BLACK_START_MS + 1200);
+    }, 1200);
 
     return () => {
-      clearTimeout(blackTimer);
       clearTimeout(minTimer);
       clearTimeout(fallbackTimer);
       videoEl?.removeEventListener('loadedmetadata', handleLoaded);
@@ -152,67 +147,68 @@ export function LoadingScreen({ onLoadComplete }: { onLoadComplete: () => void }
       <div className="absolute inset-0 bg-black" />
       <video
         ref={videoRef}
-        className="absolute inset-0 h-full w-full object-cover cinematic-video-canvas transition-opacity duration-700"
+        className="absolute inset-0 h-full w-full object-cover cinematic-video-canvas transition-opacity duration-500"
         muted
         playsInline
         autoPlay
         loop={false}
         preload="auto"
         aria-hidden="true"
-        style={{ opacity: cinematicVisible ? 1 : 0 }}
+        style={{ opacity: cinematicVisible ? 1 : 0.98 }}
       >
         <source src="/assets/intro.mp4" type="video/mp4" />
       </video>
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_18%,rgba(201,162,39,0.12),transparent_28%),linear-gradient(180deg,rgba(0,0,0,0.18),rgba(0,0,0,0.82))]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_18%,rgba(212,175,55,0.1),transparent_28%),linear-gradient(180deg,rgba(0,0,0,0.14),rgba(0,0,0,0.84))]" />
       <div className={`absolute inset-0 transition-opacity duration-700 ${cinematicVisible ? 'opacity-100' : 'opacity-0'}`}>
         <ParticleBackground />
       </div>
       <div className={`cinematic-scanlines absolute inset-0 transition-opacity duration-700 ${cinematicVisible ? 'opacity-45' : 'opacity-0'}`} />
       <div className={`cinematic-vignette absolute inset-0 transition-opacity duration-700 ${cinematicVisible ? 'opacity-100' : 'opacity-0'}`} />
 
-      <div className={`relative z-10 flex min-h-full items-end px-6 pb-10 sm:px-10 lg:items-center lg:px-16 lg:pb-0 transition-opacity duration-700 ${cinematicVisible ? 'opacity-100' : 'opacity-0'}`}>
-        <div className="grid w-full max-w-7xl grid-cols-1 gap-8 lg:grid-cols-12 lg:items-center">
-          <div className="lg:col-span-7 xl:col-span-6 max-w-3xl">
-            <div ref={titleRef} className="mb-7 space-y-4">
-              <p className="text-[11px] uppercase tracking-[0.55em] text-gold/70">Cinematic System Boot</p>
+      <div className={`relative z-10 flex min-h-full items-end px-5 pb-8 sm:px-8 lg:items-center lg:px-14 lg:pb-0 transition-opacity duration-500 ${cinematicVisible ? 'opacity-100' : 'opacity-0'}`}>
+        <div className="grid w-full max-w-7xl grid-cols-1 gap-6 lg:grid-cols-12 lg:items-center">
+          <div className="lg:col-span-7 xl:col-span-6 max-w-3xl rounded-[28px] border border-gold/15 bg-black/45 p-6 shadow-[0_30px_100px_rgba(0,0,0,0.45)] backdrop-blur-xl sm:p-8">
+            <div ref={titleRef} className="space-y-4">
+              <p className="text-[11px] uppercase tracking-[0.6em] text-gold/75">Initiating Process</p>
               <h1 className="font-display text-5xl font-semibold leading-none text-gold sm:text-7xl lg:text-8xl">MS</h1>
-              <p className="font-body text-base max-w-xl text-foreground/80 sm:text-lg">A premium immersive sequence is initializing for the next-generation portfolio experience.</p>
+              <p className="font-body text-base max-w-xl text-foreground/84 sm:text-lg">Intro sequence online. The cinematic experience is loading before the homepage hand-off.</p>
             </div>
 
-            <div ref={progressTrackRef} className="p-0 bg-transparent border-none shadow-none sm:p-0">
+            <div ref={progressTrackRef} className="mt-7">
               <div className="flex items-center justify-between gap-4 text-[11px] uppercase tracking-[0.34em] text-foreground/45">
                 <span>Experience Progress</span>
                 <span>{Math.floor(progress)}%</span>
               </div>
               <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-white/10">
-                <div className="h-full rounded-full bg-[linear-gradient(90deg,#7d5d12_0%,#c9a227_48%,#f2d37a_100%)] transition-[width] duration-150" style={{ width: `${progress}%` }} />
+                <div className="h-full rounded-full bg-[linear-gradient(90deg,#6f1116_0%,#c0262d_34%,#d4af37_72%,#ffd666_100%)] transition-[width] duration-150" style={{ width: `${progress}%` }} />
               </div>
               <div className="mt-4 flex flex-wrap gap-2 text-[10px] uppercase tracking-[0.32em] text-gold/70">
-                <span className="rounded-full border border-gold/20 bg-white/5 px-3 py-1">Black start</span>
-                <span className="rounded-full border border-gold/20 bg-white/5 px-3 py-1">Fullscreen cinematic</span>
-                <span className="rounded-full border border-gold/20 bg-white/5 px-3 py-1">Video-driven intro</span>
+                <span className="rounded-full border border-gold/20 bg-white/5 px-3 py-1">Initiating process</span>
+                <span className="rounded-full border border-gold/20 bg-white/5 px-3 py-1">Intro video active</span>
+                <span className="rounded-full border border-gold/20 bg-white/5 px-3 py-1">Homepage pending</span>
               </div>
             </div>
           </div>
 
-            <div className="lg:col-span-5 xl:col-span-4 lg:col-start-8 flex flex-col gap-3">
-              <div ref={stageRef} className="p-0 bg-transparent border-none shadow-none sm:p-0">
-                <p className="text-[11px] uppercase tracking-[0.5em] text-gold/60">{activeStage}</p>
-              </div>
-
-              <div ref={diagnosticRef} className="px-0 py-0 bg-transparent border-none text-[11px] uppercase tracking-[0.4em] text-foreground/60">
-                Initializing immersive experience...
-              </div>
+          <div className="lg:col-span-5 xl:col-span-4 lg:col-start-8 flex flex-col gap-3 rounded-[28px] border border-white/10 bg-black/35 p-6 shadow-[0_24px_80px_rgba(0,0,0,0.4)] backdrop-blur-xl sm:p-7">
+            <div ref={stageRef} className="space-y-2">
+              <p className="text-[11px] uppercase tracking-[0.5em] text-gold/65">Current Stage</p>
+              <p className="font-display text-2xl text-foreground sm:text-3xl">{activeStage}</p>
             </div>
+
+            <div ref={diagnosticRef} className="text-[11px] uppercase tracking-[0.42em] text-foreground/60">
+              Loading gameplay systems • preparing immersive environment • hand-off pending
+            </div>
+          </div>
         </div>
       </div>
 
-      <div className={`absolute bottom-6 left-6 z-20 flex items-center gap-3 text-[11px] uppercase tracking-[0.36em] text-foreground/50 sm:left-10 transition-opacity duration-700 ${cinematicVisible ? 'opacity-100' : 'opacity-0'}`}>
-        <span className="h-px w-12 bg-gradient-to-r from-gold/0 via-gold/70 to-gold/0" />
-        <span>Initializing Experience</span>
+      <div className={`absolute bottom-6 left-6 z-20 flex items-center gap-3 text-[11px] uppercase tracking-[0.36em] text-foreground/55 sm:left-10 transition-opacity duration-700 ${cinematicVisible ? 'opacity-100' : 'opacity-0'}`}>
+        <span className="h-px w-12 bg-gradient-to-r from-gold/0 via-red-400/70 to-gold/0" />
+        <span>Initiating Process</span>
       </div>
 
-      <div ref={flashRef} className="pointer-events-none absolute inset-0 z-40 bg-[radial-gradient(circle_at_center,rgba(255,240,199,0.95),rgba(201,162,39,0.45)_34%,rgba(0,0,0,0)_72%)] opacity-0" />
+      <div ref={flashRef} className="pointer-events-none absolute inset-0 z-40 bg-[radial-gradient(circle_at_center,rgba(255,221,190,0.92),rgba(192,38,45,0.32)_32%,rgba(0,0,0,0)_72%)] opacity-0" />
     </div>
   );
 }

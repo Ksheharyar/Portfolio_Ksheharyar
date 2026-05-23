@@ -3,8 +3,8 @@
 :root {
   --background: #0a0a0a;
   --foreground: #ededed;
-  --gold: #d4af37;
-  --gold-light: #ffd666;
+  --gold: #e0b43c;
+  --gold-light: #ffd97d;
   --dark-grey: #1a1a1a;
   --medium-grey: #2d2d2d;
 }
@@ -28,9 +28,9 @@ body {
   position: relative;
   min-height: 100vh;
   background-image:
-    radial-gradient(circle at top, rgba(201, 162, 39, 0.08), transparent 24%),
+    radial-gradient(circle at top, rgba(192, 38, 45, 0.11), transparent 24%),
     radial-gradient(circle at 50% 20%, rgba(255, 255, 255, 0.04), transparent 22%),
-    linear-gradient(180deg, #090909 0%, #050505 48%, #070707 100%);
+    linear-gradient(180deg, #090909 0%, #040404 48%, #070707 100%);
   background-attachment: fixed;
 }
 
@@ -40,7 +40,7 @@ body::before {
   inset: 0;
   pointer-events: none;
   background:
-    radial-gradient(circle at 50% 18%, rgba(201, 162, 39, 0.08), transparent 26%),
+    radial-gradient(circle at 50% 18%, rgba(192, 38, 45, 0.09), transparent 26%),
     radial-gradient(circle at 50% 82%, rgba(255, 255, 255, 0.03), transparent 20%);
   mix-blend-mode: screen;
   opacity: 0.16;
@@ -83,7 +83,7 @@ html {
 }
 
 ::selection {
-  background: rgba(201, 162, 39, 0.35);
+  background: rgba(192, 38, 45, 0.35);
   color: #fff8df;
 }
 
@@ -99,9 +99,9 @@ html {
 }
 
 .cinematic-vignette {
-  background: radial-gradient(circle at center, transparent 36%, rgba(0, 0, 0, 0.46) 100%);
+  background: radial-gradient(circle at center, transparent 36%, rgba(0, 0, 0, 0.5) 100%);
 }
 
 .cinematic-video-canvas {
-  filter: saturate(1.06) contrast(1.03) brightness(0.78) sepia(0.04);
+  filter: saturate(1.05) contrast(1.02) brightness(0.72) sepia(0.08) hue-rotate(-4deg);
 }

@@ -10,9 +10,24 @@ export default function ParticleBackground() {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
+    const hasWebGL = Boolean(
+      canvas.getContext('webgl2', { alpha: true }) || canvas.getContext('webgl', { alpha: true })
+    );
+
+    if (!hasWebGL) {
+      return;
+    }
+
+    let renderer: THREE.WebGLRenderer | null = null;
+
+    try {
+      renderer = new THREE.WebGLRenderer({ canvas, alpha: true });
+    } catch {
+      return;
+    }
+
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
@@ -41,7 +56,7 @@ export default function ParticleBackground() {
     const animate = () => {
       requestAnimationFrame(animate);
       particlesMesh.rotation.y += 0.001;
-      renderer.render(scene, camera);
+      renderer?.render(scene, camera);
     };
 
     animate();
@@ -56,7 +71,7 @@ export default function ParticleBackground() {
 
     return () => {
       window.removeEventListener('resize', handleResize);
-      renderer.dispose();
+      renderer?.dispose();
     };
   }, []);
 
