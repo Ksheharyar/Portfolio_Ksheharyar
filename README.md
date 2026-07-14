@@ -3,7 +3,7 @@
 A modern interactive portfolio built with Next.js showcasing my game development projects, VR experiences, Unreal Engine creations, and interactive applications.
 
 This portfolio highlights my work in:
-- 🎮 Game Development
+- 🎮 Game Development 
 - 🥽 VR/XR Experiences
 - ⚡ Unreal Engine Projects
 - 🧠 AI & Gameplay Systems
