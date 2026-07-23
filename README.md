@@ -6,7 +6,7 @@ This portfolio highlights my work in:
 - 🎮 Game Development 
 - 🥽 VR/XR Experiences
 - ⚡ Unreal Engine Projects
-- 🧠 AI & Gameplay Systems
+- 🧠 AI & Gameplay Systems 
 - 🌐 Interactive Web Experiences
 
 ---
