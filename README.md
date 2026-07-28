@@ -23,7 +23,7 @@ https://www.linkedin.com/in/mohd-sheharyar
 
 # ✨ Features
 
-## 🎮 Game Developer Themed UI
+## 🎮 Game Developer Themed UI 
 - Modern immersive design
 - Smooth animations and transitions
 - Interactive sections and effects
